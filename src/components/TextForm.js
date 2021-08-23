@@ -58,12 +58,12 @@ export default function TextForm(props) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', "convertCase.txt");
-  
+
     element.style.display = 'none';
     document.body.appendChild(element);
-  
+
     element.click();
-  
+
     document.body.removeChild(element);
     props.showAlert("Text file Downloaded", "success")
   }
@@ -99,11 +99,11 @@ export default function TextForm(props) {
 
   return (
     <>
-      <div className="container my-3" style={{color: props.mode==='dark'?'white':'black'}}>
+      <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
         <h1>{props.heading}</h1>
         <div className="mb-3">
-          <textarea className="form-control" id="my-box" rows="8" value={text} onChange={HandleOnClick} 
-          style={{backgroundColor: props.mode==='dark'?'#09091c':'white', color: props.mode==='dark'?'white':'black'}}
+          <textarea className="form-control" id="my-box" rows="8" value={text} onChange={HandleOnClick}
+            style={{ backgroundColor: props.mode === 'dark' ? '#09091c' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }}
           ></textarea>
         </div>
         <button className="btn btn-primary" onClick={HandleOnUpClick}>Convert to Upper</button>
@@ -115,12 +115,12 @@ export default function TextForm(props) {
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnDownloadClick}>Download</button>
       </div>
 
-      <div className="container my-3" style={{color: props.mode==='dark'?'white':'black'}}>
+      <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
         <h2>Your text summary</h2>
-        <p><b>{text.split(" ").length}</b> Words and <b>{text.length}</b> Characters</p>
+        <p><b>{(text.charAt(0) === "" ? 0 : (text.length > 0 && text.charAt(text.length - 1) === " " ? text.split(" ").length - 1 : text.split(" ").length))}</b> Words and <b>{text.length}</b> Characters</p>
         <p>{0.008 * text.split(" ").length.toFixed(4)} Minutes Read</p>
         <h2>Preview</h2>
-        <p>{text.length>0?text:'Enter some text in the above field to show the Preview'}</p>
+        <p>{text.length > 0 ? text : 'Enter some text in the above field to show the Preview'}</p>
       </div>
     </>
   );
