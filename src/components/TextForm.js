@@ -37,8 +37,14 @@ export default function TextForm(props) {
 
   //Function to Copy the text to Clipboard
   const HandleOnCopyClick = () => {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text.value);
   };
+
+  //Function to remove extra spaces
+  const handleOnSpaceClick = () => {
+    let newText = text.split(/[ ] + /);
+    setText(newText.join(" "))
+  }
 
   //Function to download the test as a text file
   const HandleOnDownloadClick = () => {
@@ -100,6 +106,7 @@ export default function TextForm(props) {
         <button className="btn btn-primary" onClick={HandleOnUpClick}>Convert to Upper</button>
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnLowClick}>Convert to Lower</button>
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnTitleClick}>Convert to Title</button>
+        <button className="btn btn-primary mx-2 my-3" onClick={handleOnSpaceClick}>Remove Extra space</button>
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnClearClick}>Clear Text</button>
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnCopyClick}>Copy Text</button>
         <button className="btn btn-primary mx-2 my-3" onClick={HandleOnDownloadClick}>Download</button>
@@ -108,7 +115,7 @@ export default function TextForm(props) {
 
       <div className="container my-3" style={myStyle}>
         <h2>Your text summary</h2>
-        <p><b>{text.split(" ").length}</b> Words and <b>{text.length}</b>{" "} Characters</p>
+        <p><b>{text.split(" ").length}</b> Words and <b>{text.length}</b> Characters</p>
         <p>{0.008 * text.split(" ").length.toFixed(4)} Minutes Read</p>
         <h2>Preview</h2>
         <p>{text}</p>
