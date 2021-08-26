@@ -106,21 +106,22 @@ export default function TextForm(props) {
             style={{ backgroundColor: props.mode === 'dark' ? '#09091c' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }}
           ></textarea>
         </div>
-        <button className="btn btn-primary" onClick={HandleOnUpClick}>Convert to Upper</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={HandleOnLowClick}>Convert to Lower</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={HandleOnTitleClick}>Convert to Title</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={handleOnSpaceClick}>Remove Extra space</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={HandleOnClearClick}>Clear Text</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={HandleOnCopyClick}>Copy Text</button>
-        <button className="btn btn-primary mx-2 my-3" onClick={HandleOnDownloadClick}>Download</button>
+        <button className="btn btn-primary" disabled={text.length === 0} onClick={HandleOnUpClick}>Convert to Upper</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={HandleOnLowClick}>Convert to Lower</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={HandleOnTitleClick}>Convert to Title</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={handleOnSpaceClick}>Remove Extra space</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={HandleOnClearClick}>Clear Text</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={HandleOnCopyClick}>Copy Text</button>
+        <button className="btn btn-primary mx-2 my-3" disabled={text.length === 0} onClick={HandleOnDownloadClick}>Download</button>
       </div>
 
       <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
         <h2>Your text summary</h2>
-        <p><b>{(text.charAt(0) === "" ? 0 : (text.length > 0 && text.charAt(text.length - 1) === (" ") ? text.split(" ").length - 1 : text.split(" ").length))}</b> Words and <b>{text.length}</b> Characters</p>
-        <p>{0.008 * text.split(" ").length.toFixed(4)} Minutes Read</p>
+        <p><b>{text.split(" ").filter((element) => {return element.length !== 0}).length}</b> Words and <b>{text.length}</b> Characters</p>
+        {/* <p><b>{(text.charAt(0) === "" ? 0 : (text.length > 0 && text.charAt(text.length - 1) === (" ") ? text.split(" ").length - 1 : text.split(" ").length))}</b> Words and <b>{text.length}</b> Characters</p> */}
+        <p>{((0.008 * text.split(" ").length).toFixed(4))} Minutes Read</p>
         <h2>Preview</h2>
-        <p>{text.length > 0 ? text : 'Enter some text in the above field to show the Preview'}</p>
+        <p>{text.length > 0 ? text : 'Nothing to Preview'}</p>
       </div>
     </>
   );
